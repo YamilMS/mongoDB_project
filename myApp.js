@@ -43,19 +43,22 @@ const createAndSavePerson = (done) => {
 const createManyPeople = (arrayOfPeople, done) => {
   
   //Create several people using the Model.create(collection, callback) method
-  Person.create(arrayOfPeople, (err, data) => {
+  Person.create(arrayOfPeople, (err, people) => {
     if (err) return console.log(err);
-    done(null, data); 
+    done(null, people); 
   })
   
 };
 
 const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+  Person.find({name: personName}, (err, personFound) => {
+    if (err) return console.log(err);
+    done(null, personFound); 
+  })
 };
 
 const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+
 };
 
 const findPersonById = (personId, done) => {
