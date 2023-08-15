@@ -41,7 +41,6 @@ const createAndSavePerson = (done) => {
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
-  
   //Create several people using the Model.create(collection, callback) method
   Person.create(arrayOfPeople, (err, people) => {
     if (err) return console.log(err);
@@ -51,6 +50,7 @@ const createManyPeople = (arrayOfPeople, done) => {
 };
 
 const findPeopleByName = (personName, done) => {
+  //find accept two parameter, the first one is the query, the second one is the callback
   Person.find({name: personName}, (err, personFound) => {
     if (err) return console.log(err);
     done(null, personFound); 
@@ -58,6 +58,8 @@ const findPeopleByName = (personName, done) => {
 };
 
 const findOneByFood = (food, done) => {
+  //findOne accept two parameter, the first one is the query, the second one is the callback
+  //findOne is a method that will return the first element that matches the query, if no match is found, it will return null. 
   Person.findOne({favoriteFoods: food}, (err, personFound) =>{
     if (err) return console.log(err);
     done(null, personFound); 
@@ -65,21 +67,34 @@ const findOneByFood = (food, done) => {
 };
 
 const findPersonById = (personId, done) => {
+  //All models have a column called _id, which is a unique identifier for each document
   Person.findById(personId, (err, personFound) =>{
     if (err) return console.log(err);
     done(null, personFound); 
   })
+
 };
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
+  
+  Person.findById(personId, (err, personFound) => {
+    //Check if there is an error
+    if (err) return console.log(err);
 
-  done(null /*, data*/);
+    //add the food to the person's favoriteFoods array
+    personFound.favoriteFoods.push(foodToAdd);
+
+    //Save the person's updated data in the database
+    personFound.save((err, updatePerson) => {
+      if (err) return console.log(err);
+      done(null, updatePerson); 
+    })
+  })
 };
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
-
   done(null /*, data*/);
 };
 
