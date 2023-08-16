@@ -95,11 +95,15 @@ const findEditThenSave = (personId, done) => {
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
-  done(null /*, data*/);
+  //This method accepts three parameters: the query, the update, and the options and lastly the callback.
+  Person.findOneAndUpdate({name: personName}, {age: ageToSet}, {new: true}, (err, updatePerson) => {
+    if (err) return console.log(err);
+    done(null, updatePerson); 
+  })
 };
 
 const removeById = (personId, done) => {
-  done(null /*, data*/);
+  
 };
 
 const removeManyPeople = (done) => {
