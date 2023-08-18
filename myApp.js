@@ -103,6 +103,7 @@ const findAndUpdate = (personName, done) => {
 };
 
 const removeById = (personId, done) => {
+  //This method finds a document by its ID and removes it.
   Person.findByIdAndRemove(personId, (err, removedPerson) => {
     if (err) return console.log(err);
     done(null, removedPerson); 
@@ -111,12 +112,15 @@ const removeById = (personId, done) => {
 
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
-  done(null /*, data*/);
+  //This method removes all the documents that match a certain criteria.
+  Person.remove({name: nameToRemove}, (err, removedPeople) => {
+    if (err) return console.log(err);
+    done(null, removedPeople); 
+  })
 };
 
 const queryChain = (done) => {
   const foodToSearch = "burrito";
-
   done(null /*, data*/);
 };
 
